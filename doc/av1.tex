@@ -92,6 +92,184 @@ legend(
 dev.off()
 \end{lstlisting}
 
+\newpage
+\subsection{Medidas de posição e separatrizes para a variável "Nota Matemática"}
+$\rightarrow$ Medidas de posição:
+\begin{table}[H]
+\begin{tabular}{|l|l|}
+\hline
+Média   & 248.0537 \\ \hline
+Mediana & 246      \\ \hline
+Moda    & 247      \\ \hline
+\end{tabular}
+\end{table}
+\noindent
+$\rightarrow$ Separatrizes:
+\begin{table}[H]
+\begin{tabular}{|l|l|l|l|}
+\hline
+0\% & 25\% & 75\% & 100\% \\ \hline
+126 & 216  & 278  & 430   \\ \hline
+\end{tabular}
+\end{table}
+\noindent
+Código-fonte:
+\begin{lstlisting}
+# posicao.r
+source("scripts\\moda.r")
+
+posicao <- function(v) {
+    media_v <- mean(v)
+    print(media_v)
+
+    mediana_v <- median(v)
+    print(mediana_v)
+
+    moda_v <- moda(v)
+    print(moda_v)
+
+    separatrizes <- quantile(
+        v,
+        probs=c(0, 0.25, 0.75, 1.0)
+    )
+    print(separatrizes)
+}
+    
+# posicao_mat.r
+source("scripts\\posicao.r")
+
+src <- read.table(file="sources\\DadosSaeb.csv", sep=";", header=TRUE)
+
+nota_mat <- src$"Nota.Matematica"
+posicao(nota_mat)
+\end{lstlisting}
+
+\newpage
+\subsection{Medidas de posição e separatrizes para a variável "Nota Português"}
+$\rightarrow$ Medidas de posição:
+\begin{table}[H]
+\begin{tabular}{|l|l|}
+\hline
+Média   & 253.7449 \\ \hline
+Mediana & 255      \\ \hline
+Moda    & 249      \\ \hline
+\end{tabular}
+\end{table}
+\noindent
+$\rightarrow$ Separatrizes:
+\begin{table}[H]
+\begin{tabular}{|l|l|l|l|}
+\hline
+0\% & 25\% & 75\% & 100\% \\ \hline
+127 & 222  & 286  & 374   \\ \hline
+\end{tabular}
+\end{table}
+\noindent
+Código-fonte:
+\begin{lstlisting}
+# posicao.r
+source("scripts\\moda.r")
+
+posicao <- function(v) {
+    media_v <- mean(v)
+    print(media_v)
+
+    mediana_v <- median(v)
+    print(mediana_v)
+
+    moda_v <- moda(v)
+    print(moda_v)
+
+    separatrizes <- quantile(
+        v,
+        probs=c(0, 0.25, 0.75, 1.0)
+    )
+    print(separatrizes)
+}
+    
+# posicao_lp.r
+source("scripts\\posicao.r")
+
+src <- read.table(file="sources\\DadosSaeb.csv", sep=";", header=TRUE)
+
+nota_lp <- src$"Nota.Portugues"
+posicao(nota_lp)
+
+\end{lstlisting}
+
+\newpage
+\subsection{Medidas de dispersão para a variável "Nota Matemática"}
+$\rightarrow$ Medidas de dispersão:
+\begin{table}[H]
+\begin{tabular}{|l|l|}
+\hline
+Variância   & 2072.14 \\ \hline
+Desvio Padrão & 45.52077      \\ \hline
+Coeficiente de Variação    & 18.35118      \\ \hline
+\end{tabular}
+\end{table}
+\noindent
+O Coeficiente de Variação indica que a amostra é homogênea (18.35 $\le$ 30.00) \\
+Código-fonte:
+\begin{lstlisting}
+# dispersao.r
+dispersao <- function(v) {
+    variance <- var(v)
+    print(variance)
+
+    standard_deviation <- sd(v)
+    print(standard_deviation)
+
+    cv <- standard_deviation / mean(v) * 100
+    print(cv)
+}
+
+# dispersao_mat.r
+source("scripts\\dispersao.r")
+
+src <- read.table(file="sources\\DadosSaeb.csv", sep=";", header=TRUE)
+
+nota_mat <- src$"Nota.Matematica"
+dispersao(nota_mat)
+\end{lstlisting}
+
+\newpage
+\subsection{Medidas de dispersão para a variável "Nota Português"}
+$\rightarrow$ Medidas de dispersão:
+\begin{table}[H]
+\begin{tabular}{|l|l|}
+\hline
+Variância   & 2082.976 \\ \hline
+Desvio Padrão & 45.63963      \\ \hline
+Coeficiente de Variação    & 17.98642      \\ \hline
+\end{tabular}
+\end{table}
+\noindent
+O Coeficiente de Variação indica que a amostra é homogênea (17.99 $\le$ 30.00) \\
+Código-fonte:
+\begin{lstlisting}
+# dispersao.r
+dispersao <- function(v) {
+    variance <- var(v)
+    print(variance)
+
+    standard_deviation <- sd(v)
+    print(standard_deviation)
+
+    cv <- standard_deviation / mean(v) * 100
+    print(cv)
+}
+
+# dispersao_lp.r
+source("scripts\\dispersao.r")
+
+src <- read.table(file="sources\\DadosSaeb.csv", sep=";", header=TRUE)
+
+nota_lp <- src$"Nota.Portugues"
+dispersao(nota_lp)
+\end{lstlisting}
+
+\newpage
 \subsection{Gráfico de setor para a variável "Você gosta de estudar Matemática?"}
 \begin{figure}[H]
     \includegraphics[width=0.7\linewidth]{gosta_mat.png}
@@ -161,24 +339,122 @@ dev.off()
     \includegraphics[width=0.7\linewidth]{box_mat.png}
     \centering
 \end{figure}
+Este gráfico mostra que a maioria das notas de Matemática ficam entre aproximadamente 220 e 270, com outliers acima de 375. \newline
+Código-fonte: \newline
+\begin{lstlisting}
+# boxplot.r
+box <- function(v, name, color, title) {
+    png(paste("graphs\\box_", name, sep=""))
+    boxplot(
+        v,
+        col=color,
+        border="black",
+        main=title
+    )
+    dev.off()
+}
+
+# boxplot_mat.r
+source("scripts\\boxplot.r")
+
+src <- read.table(file="sources\\DadosSaeb.csv", sep=";", header=TRUE)
+
+nota_mat <- src$"Nota.Matematica"
+box(nota_mat, "mat.png", "#003f5c", "Distribuicao da Nota de Matematica")
+\end{lstlisting}
 
 \subsection{Boxplot para a variável "Nota Português"}
 \begin{figure}[H]
     \includegraphics[width=0.7\linewidth]{box_lp.png}
     \centering
 \end{figure}
+Este gráfico mostra que a maioria das notas de Português ficam entre aproximadamente 225 e 280, sem outliers. \newline
+Código-fonte: \newline
+\begin{lstlisting}
+# boxplot.r
+box <- function(v, name, color, title) {
+    png(paste("graphs\\box_", name, sep=""))
+    boxplot(
+        v,
+        col=color,
+        border="black",
+        main=title
+    )
+    dev.off()
+}
+
+# boxplot_lp.r
+source("scripts\\boxplot.r")
+
+src <- read.table(file="sources\\DadosSaeb.csv", sep=";", header=TRUE)
+
+nota_lp <- src$"Nota.Portugues"
+box(nota_lp, "lp.png", "#ffa600", "Distribuicao da Nota de Lingua Portuguesa")
+\end{lstlisting}
 
 \subsection{Histograma para a variável "Nota Matemática"}
 \begin{figure}[H]
     \includegraphics[width=0.7\linewidth]{hist_mat.png}
     \centering
 \end{figure}
+Este gráfico mostra que as notas de Matemática estão distribuidas de forma homogênea, com alta concentração no centro. \newline
+Código-fonte: \newline
+\begin{lstlisting}
+# hist.r
+histogram <- function(v, name, color, title, ylim1) {
+    png(paste("graphs\\hist_", name, sep=""))
+    hist(
+        as.numeric(v),
+        col=color,
+        main=title,
+        xlab="Nota",
+        ylab="Frequencia",
+        xlim=c(100, 400),
+        ylim=c(0, ylim1)
+    )
+    dev.off()
+}
+
+# hist_mat.r
+source("scripts\\hist.r")
+
+src <- read.table(file="sources\\DadosSaeb.csv", sep=";", header=TRUE)
+
+nota_mat <- src$"Nota.Matematica"
+histogram(nota_mat, "mat.png", "#003f5c", "Histograma da Nota de Matematica", 20000)
+\end{lstlisting}
 
 \subsection{Histograma para a variável "Nota Português"}
 \begin{figure}[H]
     \includegraphics[width=0.7\linewidth]{hist_lp.png}
     \centering
 \end{figure}
+Este gráfico mostra que as notas de Português estão distribuidas de forma homogênea, com maior distribuição entre as classes. \newline
+Código-fonte: \newline
+\begin{lstlisting}
+# hist.r
+histogram <- function(v, name, color, title, ylim1) {
+    png(paste("graphs\\hist_", name, sep=""))
+    hist(
+        as.numeric(v),
+        col=color,
+        main=title,
+        xlab="Nota",
+        ylab="Frequencia",
+        xlim=c(100, 400),
+        ylim=c(0, ylim1)
+    )
+    dev.off()
+}
+
+# hist_lp.r
+source("scripts\\hist.r")
+
+src <- read.table(file="sources\\DadosSaeb.csv", sep=";", header=TRUE)
+
+nota_lp <- src$"Nota.Portugues"
+histogram(nota_lp, "lp.png", "#ffa600", "Histograma da Nota de Portugues", 10000)
+\end{lstlisting}
 
 \newpage
 \section{Referências bibliográficas}
