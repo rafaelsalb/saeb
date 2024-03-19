@@ -57,7 +57,100 @@ $\rightarrow$ Determinar as medidas de dispersão para as variáveis: Nota Portu
 $\rightarrow$ Determinar o boxplot para as variáveis: Nota Português; Nota Matemática.\newline
 $\rightarrow$ Determinar o histograma para as variáveis: Nota Português; Nota Matemática.\newline
 
+\newpage
 \section{Análise e Interpretação dos dados}
+\subsection{Tabela cruzada de frequência simples e relativa das variáveis "Gosta de estudar Matemática" x "Faz o dever de casa de Matemática"}
+Frequência simples:
+\begin{table}[H]
+\resizebox{\textwidth}{!}{
+    \begin{tabular}{|l|l|l|}
+    \hline
+        & O(A) professor(a) não passa dever de casa. & Sempre, ou quase sempre. \\ \hline
+    Não & 625                                        & 10599                    \\ \hline
+    Sim & 985                                        & 52317                    \\ \hline
+    \end{tabular}
+}
+\end{table}
+\begin{table}[H]
+\resizebox{\textwidth}{!}{
+    \begin{tabular}{|l|l|l|}
+    \hline
+        & O(A) professor(a) não passa dever de casa. & Sempre, ou quase sempre. \\ \hline
+    Não & 0.006250063                                & 0.105991060              \\ \hline
+    Sim & 0.0098500991                               & 0.523175232              \\ \hline
+    \end{tabular}
+}
+\end{table}
+Código-fonte:
+\begin{lstlisting}
+src <- read.table(file="sources\\DadosSaeb.csv", sep=";", header=TRUE)
+
+reprovou <- src$"Voce.ja.foi.reprovado."
+abandonou <- src$"Voce.ja.abandonou.a.escola."
+reprovou_abandonou <- table(reprovou, abandonou)
+reprovou_abandonou
+
+reprovou_abandonou_rel <- prop.table(reprovou_abandonou, margin = NULL)
+print(reprovou_abandonou_rel)
+
+gosta_mat <- src$"Voce.gosta.de.estudar.Matematica."
+faz_dever_mat <- src$"Voce.faz.o.dever.de.casa.de.Matematica."
+gosta_faz_dever <- table(gosta_mat, faz_dever_mat)
+gosta_faz_dever
+
+gosta_faz_dever_rel <- prop.table(gosta_faz_dever, margin = NULL)
+gosta_faz_dever_rel
+
+\end{lstlisting}
+
+\newpage
+\subsection{Tabela cruzada de frequência simples e relativa das variáveis "já foi reprovado" x "já abandonou a escola"}
+Frequência simples:
+\begin{table}[H]
+\resizebox{\textwidth}{!}{
+    \begin{tabular}{|l|l|l|l|}
+    \hline
+                            & Não   & Sim, duas vezes ou mais & Sim, uma vez \\ \hline
+    Não                     & 66716 & 513                     & 2093         \\ \hline
+    Sim, duas vezes ou mais & 6405  & 488                     & 1254         \\ \hline
+    Sim, uma vez            & 19905 & 317                     & 2308         \\ \hline
+    \end{tabular}
+}
+\end{table}
+\begin{table}[H]
+\resizebox{\textwidth}{!}{
+    \begin{tabular}{|l|l|l|l|}
+    \hline
+                            & Não     & Sim, duas vezes ou mais & Sim, uma vez \\ \hline
+    Não                     & 0.66716 & 0.513                   & 0.2093       \\ \hline
+    Sim, duas vezes ou mais & 0.6405  & 0.488                   & 0.1254       \\ \hline
+    Sim, uma vez            & 0.19905 & 0.317                   & 0.2308       \\ \hline
+    \end{tabular}
+}
+\end{table}
+Código-fonte:
+\begin{lstlisting}
+src <- read.table(file="sources\\DadosSaeb.csv", sep=";", header=TRUE)
+
+reprovou <- src$"Voce.ja.foi.reprovado."
+abandonou <- src$"Voce.ja.abandonou.a.escola."
+reprovou_abandonou <- table(reprovou, abandonou)
+reprovou_abandonou
+
+reprovou_abandonou_rel <- prop.table(reprovou_abandonou, margin = NULL)
+print(reprovou_abandonou_rel)
+
+gosta_mat <- src$"Voce.gosta.de.estudar.Matematica."
+faz_dever_mat <- src$"Voce.faz.o.dever.de.casa.de.Matematica."
+gosta_faz_dever <- table(gosta_mat, faz_dever_mat)
+gosta_faz_dever
+
+gosta_faz_dever_rel <- prop.table(gosta_faz_dever, margin = NULL)
+gosta_faz_dever_rel
+
+\end{lstlisting}
+
+\newpage
 \subsection{Gráfico de barra para a variável "Quando você entrou na escola?"}
 \begin{figure}[H]
     \includegraphics[width=0.7\linewidth]{quando_entrou_na_escola.png}
