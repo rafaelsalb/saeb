@@ -151,6 +151,139 @@ gosta_faz_dever_rel
 \end{lstlisting}
 
 \newpage
+\subsection{Tabela de frequência simples e relativa das variáveis "já foi reprovado", "já abandonou a escola", "gosta de estudar Língua Portuguesa", "gosta de estudar Matemática", "faz o dever de casa de Matemática"}
+Você já foi reprovado? \\
+Frequência simples:
+\begin{table}[H]
+\begin{tabular}{|l|l|l|}
+\hline
+Não   & Sim, duas vezes ou mais & Sim, uma vez \\ \hline
+69322 & 8147                    & 22530        \\ \hline
+\end{tabular}
+\end{table}
+\noindent
+Frequência relativa:
+\begin{table}[H]
+\begin{tabular}{|l|l|l|}
+\hline
+Não   & Sim, duas vezes ou mais & Sim, uma vez \\ \hline
+0.69322 & 0.8147                    & 0.22530        \\ \hline
+\end{tabular}
+\end{table}
+
+\noindent
+Já abandonou a escola? \\
+Frequência simples:
+\begin{table}[H]
+\begin{tabular}{|l|l|l|}
+\hline
+Não   & Sim, duas vezes ou mais & Sim, uma vez \\ \hline
+93026 & 1318                    & 5655        \\ \hline
+\end{tabular}
+\end{table}
+\noindent
+Frequência relativa:
+\begin{table}[H]
+\begin{tabular}{|l|l|l|}
+\hline
+Não   & Sim, duas vezes ou mais & Sim, uma vez \\ \hline
+0.93026 & 0.1318                    & 0.5655        \\ \hline
+\end{tabular}
+\end{table}
+
+\noindent
+Você gosta de estudar Matemática? \\
+Frequência simples:
+\begin{table}[H]
+\begin{tabular}{|l|l|}
+\hline
+Não   & Sim \\ \hline
+28228 & 71771        \\ \hline
+\end{tabular}
+\end{table}
+\noindent
+Frequência relativa:
+\begin{table}[H]
+\begin{tabular}{|l|l|}
+\hline
+Não   & Sim \\ \hline
+0.28228 & 0.71771        \\ \hline
+\end{tabular}
+\end{table}
+
+\noindent
+Você gosta de estudar Língua Portuguesa? \\
+Frequência simples:
+\begin{table}[H]
+\begin{tabular}{|l|l|}
+\hline
+Não   & Sim \\ \hline
+18373 & 81626        \\ \hline
+\end{tabular}
+\end{table}
+\noindent
+Frequência relativa:
+\begin{table}[H]
+    \begin{tabular}{|l|l|}
+    \hline
+    Não   & Sim \\ \hline
+    0.18373 & 0.81626        \\ \hline
+    \end{tabular}
+\end{table}
+
+\noindent
+Você faz o dever de casa de Matemática? \\
+Frequência simples:
+\begin{table}[H]
+\resizebox{\textwidth}{!}{
+    \begin{tabular}{|l|l|l|l|}
+    \hline
+    De vez em quando & Nunca ou quase nunca & O(A) professor(a) não passa dever de casa & Sempre ou quase sempre \\ \hline
+    32073 & 3400 & 1610 & 62916 \\ \hline
+    \end{tabular}
+}
+\end{table}
+\noindent
+Frequência relativa:
+\begin{table}[H]
+\resizebox{\textwidth}{!}{
+    \begin{tabular}{|l|l|l|l|}
+    \hline
+    De vez em quando & Nunca ou quase nunca & O(A) professor(a) não passa dever de casa & Sempre ou quase sempre \\ \hline
+    0.32073 & 0.3400 & 0.1610 & 0.62916 \\ \hline
+    \end{tabular}
+}
+\end{table}
+
+Código-fonte:
+\begin{lstlisting}
+src <- read.table(file="sources\\DadosSaeb.csv", sep=";", header=TRUE)
+
+freqs <- function(v) {
+    t <- table(v)
+    print(t)
+    t_rel <- prop.table(t, margin=NULL)
+    print(t_rel)
+}
+
+reprovou <- src$"Voce.ja.foi.reprovado."
+freqs(reprovou)
+
+abandonou <- src$"Voce.ja.abandonou.a.escola."
+freqs(abandonou)
+
+gosta_mat <- src$"Voce.gosta.de.estudar.Matematica."
+freqs(gosta_mat)
+
+gosta_lp <- src$"Voce.gosta.de.estudar.Lingua.Portuguesa."
+freqs(gosta_lp)
+
+faz_dever_mat <- src$"Voce.faz.o.dever.de.casa.de.Matematica."
+freqs(faz_dever_mat)
+
+\end{lstlisting}
+
+\newpage
 \subsection{Gráfico de barra para a variável "Quando você entrou na escola?"}
 \begin{figure}[H]
     \includegraphics[width=0.7\linewidth]{quando_entrou_na_escola.png}
