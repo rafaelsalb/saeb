@@ -1,0 +1,186 @@
+\documentclass[17pt]{extarticle}
+
+\usepackage[utf8x]{inputenc}
+\usepackage{listings}
+\usepackage{color}
+\usepackage{graphicx}
+\usepackage{float}
+\graphicspath{{graphs/}}
+\definecolor{dkgreen}{rgb}{0,0.6,0}
+\definecolor{gray}{rgb}{0.5,0.5,0.5}
+\definecolor{mauve}{rgb}{0.58,0,0.82}
+
+\lstset{
+    frame=tb,
+    language=R,
+    aboveskip=3mm,
+    belowskip=3mm,
+    showstringspaces=false,
+    columns=flexible,
+    basicstyle={\small\ttfamily},
+    numbers=none,
+    numberstyle=\tiny\color{gray},
+    keywordstyle=\color{blue},
+    commentstyle=\color{dkgreen},
+    stringstyle=\color{mauve},
+    breaklines=true,
+    breakatwhitespace=true,
+    tabsize=4,
+    basicstyle=\tiny
+}
+
+\title{Estudo descritivo sobre os dados do Sistema de Avaliação da Educação Básica (Saeb) utilizando a linguagem R}
+\author{Rafael da Silva Albuquerque}
+\date{03.2024}
+
+\begin{document}
+
+\begin{figure}[t]
+    \centering
+    \includegraphics[width=0.5\linewidth]{doc/unifor-logo.png}
+    \label{fig:my_label}
+\end{figure}
+\maketitle
+
+\newpage
+\section{Introdução}
+dgmaipmgipa
+
+\newpage
+\section{Objetivo Específico}
+$\rightarrow$ Fazer uma tabela com as frequências simples e relativas para as Variáveis: já foi reprovado, já abandonou a escola; gosta de estudar Língua Portuguesa; gosta de estudar Matemática; faz o dever de casa de Matemática.\newline
+$\rightarrow$ Montar tabela cruzada com as frequências simples e relativas para as variáveis: já foi reprovado versus já abandonou a escola; gosta de estudar Matemática versus faz o dever de casa de Matemática.\newline
+$\rightarrow$ Montar um gráfico de barra para a variável quando entrou na escola;\newline
+$\rightarrow$ Montar um gráfico de setor para as variáveis: gosta de estudar Matemática; gosta de estudar Língua Portuguesa.\newline
+$\rightarrow$ Determinar as medidas de posição e separatrizes para as variáveis: Nota Português; Nota Matemática.\newline
+$\rightarrow$ Determinar as medidas de dispersão para as variáveis: Nota Português; Nota Matemática.\newline
+$\rightarrow$ Determinar o boxplot para as variáveis: Nota Português; Nota Matemática.\newline
+$\rightarrow$ Determinar o histograma para as variáveis: Nota Português; Nota Matemática.\newline
+
+\section{Análise e Interpretação dos dados}
+\subsection{Gráfico de barra para a variável "Quando você entrou na escola?"}
+\begin{figure}[H]
+    \includegraphics[width=0.7\linewidth]{quando_entrou_na_escola.png}
+    \centering
+\end{figure}
+Este gráfico mostra que a maioria dos alunos do ensino básico entrou na escola na pré-escola, enquanto a minoria entrou depois da primeira série. O segundo maior grupo entrou na escola na creche, e o segundo menor grupo entrou na primeria série ou primeiro ano. \newline
+Código fonte: \newline
+\begin{lstlisting}
+src <- read.table(file="sources\\DadosSaeb.csv", sep=";", header=TRUE)
+
+quando_entrou <- table(src$"Quando.voce.entrou.na.escola.")
+png(".\\graphs\\quando_entrou_na_escola.png")
+relatorio3 <- barplot(
+    height=as.numeric(quando_entrou),
+    names=c(),
+    col=c("#003f5c", "#58508d", "#bc5090", "#ff6361"),
+    ylim=c(0, 60000),
+    main="Quando voce entrou na escola?",
+)
+par(xpd=TRUE)
+legend(
+    "topleft",
+    inset=c(0, 0),
+    legend=c("Depois da primeira serie", "Na creche (0 a 3 anos)", "Na pre-escola (4 a 5 anos)", "Na primeira serie ou primeiro ano (6 a 7 anos)"),
+    col=c("#003f5c", "#58508d", "#bc5090", "#ff6361"),
+    lty=1,
+    cex=1,
+    title="Respostas",
+    text.font=4,
+    bg="white"
+)
+dev.off()
+\end{lstlisting}
+
+\subsection{Gráfico de setor para a variável "Você gosta de estudar Matemática?"}
+\begin{figure}[H]
+    \includegraphics[width=0.7\linewidth]{gosta_mat.png}
+    \centering
+\end{figure}
+Este gráfico mostra que a maioria dos estudantes do ensino básico afirmam gostar de estudar Matemática, ou seja, \(\frac{71771}{99999} \approx 0.717\) ou 71.7 a cada 100 estudantes. \newline
+Código-fonte:
+\begin{lstlisting}
+src <- read.table(file="sources\\DadosSaeb.csv", sep=";", header=TRUE)
+
+gosta_mat <- table(src$"Voce.gosta.de.estudar.Matematica.")
+
+png(".\\graphs\\gosta_mat.png")
+relatorio4 <- pie(
+    as.numeric(gosta_mat),
+    col=c("#ffa600", "#003f5c"),
+    labels=as.numeric(gosta_mat),
+    main="Voce gosta de estudar Matematica?"
+)
+legend(
+    "topleft",
+    legend=c("Sim", "Nao"),
+    col=c("#003f5c", "#ffa600"),
+    lty=1,
+    cex=1,
+    title="Respostas",
+    text.font=4,
+    bg="white"
+)
+dev.off()
+\end{lstlisting}
+
+\subsection{Gráfico de setor para a variável "Você gosta de estudar Língua Portuguesa?"}
+\begin{figure}[H]
+    \includegraphics[width=0.7\linewidth]{gosta_lp.png}
+    \centering
+\end{figure}
+Este gráfico mostra que a maioria dos estudantes do ensino básico afirmam gostar de estudar Língua Portuguesa, ou seja, \(\frac{81626}{99999} \approx 0.816\) ou 81.6 a cada 100 estudantes. \newline
+Código-fonte:
+\begin{lstlisting}
+src <- read.table(file="sources\\DadosSaeb.csv", sep=";", header=TRUE)
+
+gosta_lp <- table(src$"Voce.gosta.de.estudar.Lingua.Portuguesa.")
+
+png(".\\graphs\\gosta_lp.png")
+relatorio5 <- pie(
+    as.numeric(gosta_lp),
+    col=c("#ffa600", "#003f5c"),
+    labels=as.numeric(gosta_lp),
+    main="Voce gosta de estudar Lingua Portuguesa?",
+)
+legend(
+    "topleft",
+    legend=c("Sim", "Nao"),
+    col=c("#003f5c", "#ffa600"),
+    lty=1,
+    cex=1,
+    title="Respostas",
+    text.font=4,
+    bg="white"
+)
+dev.off()
+\end{lstlisting}
+
+\subsection{Boxplot para a variável "Nota Matemática"}
+\begin{figure}[H]
+    \includegraphics[width=0.7\linewidth]{box_mat.png}
+    \centering
+\end{figure}
+
+\subsection{Boxplot para a variável "Nota Português"}
+\begin{figure}[H]
+    \includegraphics[width=0.7\linewidth]{box_lp.png}
+    \centering
+\end{figure}
+
+\subsection{Histograma para a variável "Nota Matemática"}
+\begin{figure}[H]
+    \includegraphics[width=0.7\linewidth]{hist_mat.png}
+    \centering
+\end{figure}
+
+\subsection{Histograma para a variável "Nota Português"}
+\begin{figure}[H]
+    \includegraphics[width=0.7\linewidth]{hist_lp.png}
+    \centering
+\end{figure}
+
+\newpage
+\section{Referências bibliográficas}
+
+\end{document}

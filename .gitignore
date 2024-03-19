@@ -1,2 +1,7 @@
-graphs/
+graphs/*
 sources/DadosSaeb.xlsx
+*.log
+*.aux
+*.gz
+*.synctex(busy)
+av1.pdf
